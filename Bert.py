@@ -3,12 +3,12 @@ from transformers import BertTokenizer, BertModel
 
 
 # Load pre-trained BERT model and tokenizer
-def bert():
+def bert(text):
     tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
     model = BertModel.from_pretrained('bert-base-uncased')
 
     # Define input text
-    text = "E:\DataSet\Session-1\Transcription\Ses01F_impro01.txt"
+    # text = "E:\DataSet\Session-1\Transcription\Ses01F_impro01.txt"
 
     # Tokenize input text and add special tokens
     input_ids = tokenizer.encode(text, add_special_tokens=True)
