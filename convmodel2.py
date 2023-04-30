@@ -1,6 +1,7 @@
 from keras.layers import Input, Concatenate, Conv1D, MaxPooling1D, Flatten, Dense
 from keras.models import Model
-from sequenceAgg import audio_features
+from sequenceAgg import audio_features, text_features
+
 
 # Define the input shape for the audio features
 audio_input_shape = (audio_feature_length, 1)
