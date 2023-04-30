@@ -1,6 +1,13 @@
+/__pycache__
+/.venv
+/.vscode
+/dlib_venv
+/openface
+
 /audio
+/audio2
 /video
 /emovalue
 /text
-/audio2
+/text2
 /csv_file
