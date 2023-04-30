@@ -43,5 +43,5 @@ c=0
 for name in filesnames:
     for i in range(len(start)):
         c=c+1
-        cut_audio('audio\\'+name+'.wav', start[c], end[c], 'audio2\output'+str(c)+'.wav')
+        cut_audio('audio\\'+name+'.wav', start[c], end[c], 'audioSplit\output'+str(c)+'.wav')
     

@@ -1,6 +1,7 @@
 from transformers import BertTokenizer, BertModel
 import torch
 import pandas as pd
+
 # Define the text documents
 # documents = ['This is the first document', 'This is the second document', 'And this is the third document']
 documents=pd.read_csv('dataset_label\\1st.csv')['text']
