@@ -4,7 +4,7 @@ import pandas as pd
 
 # Define the text documents
 # documents = ['This is the first document', 'This is the second document', 'And this is the third document']
-documents=pd.read_csv('dataset_label\\1st.csv')['text']
+documents=pd.read_csv('dataset_label\\PG_Data.csv')['text']
 # Load the BERT tokenizer and model
 tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
 model = BertModel.from_pretrained('bert-base-uncased', output_hidden_states=True)
