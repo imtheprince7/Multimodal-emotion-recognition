@@ -1,8 +1,8 @@
 import openpyxl
 wb=openpyxl.Workbook()
 sheet=wb.active
-fileName="E:/Multimodal-emotion-recognition/text/Ses05M_impro01.txt"
-fileName2="Ses05M_impro01.xlsx"
+fileName="E:/Multimodal-emotion-recognition/text/Ses03F_script03_1.txt"
+fileName2="Ses03F_script03_1.xlsx"
 f = open(fileName, "r")
 fcolumn=('file_name','turn_name','start_time','end_time','text','emotion')
 sheet.append(fcolumn)
@@ -14,11 +14,11 @@ while(i<100):
     cellNo=chr(asc)
     fCNo=cellNo+str(r)
     asc+=1
-    c2=data[:14]
-    c3=data[15:19]
-    c4=data[21:29]
-    c5=data[30:38]
-    c6=data[41:]
+    c2=data[:17]
+    c3=data[18:22]
+    c4=data[24:32]
+    c5=data[33:41]
+    c6=data[44:]
     c6=c6[:len(c6)-1]
     ls=[]
     ls.append(c2)
