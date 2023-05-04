@@ -6,9 +6,21 @@
 
 
 /audio
+/audioAll
 /audioSplit
-/video
+/dataset_label
 /emovalue
 /text
+/video
+/videoSplit
 /text2
-/csv_file
+
+
+/data
+/data.csv
+/audio_features.csv
+/FinalAudioDataset.csv
+/MFCCFeaturess.csv
+/RMSFfeaturePD.csv
+/audio_features.csv
+/text_features.csv

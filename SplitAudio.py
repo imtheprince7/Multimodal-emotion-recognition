@@ -33,15 +33,22 @@ def cut_audio(input_file, start_time, end_time, output_file):
             output_audio_file.setframerate(frame_rate)
             output_audio_file.writeframes(audio_data)
 import pandas as pd
-df=pd.read_csv('E:\Multimodal-emotion-recognition\\dataset_label\\1st.csv')
+df=pd.read_csv('E:\Multimodal-emotion-recognition\\dataset_label\P_GData.csv')
 start=round(df['start_time'])
 end=round(df['end_time'])
 emotion=df['emotion']
 filesnames=df['file_name']
-filesnames=set(filesnames)
+# filesnames=set(filesnames)
 c=0
-for name in filesnames:
-    for i in range(len(start)):
+file=[]
+try:
+    for name in filesnames:
         c=c+1
-        cut_audio('audio\\'+name+'.wav', start[c], end[c], 'audioSplit\output'+str(c)+'.wav')
-    
+        cut_audio('audio/'+name+'.wav', start[c], end[c], 'audioSplit/output'+str(c)+'.wav')
+        file.append('output'+str(c)+'.wav')
+except:
+    pass
+file.append('')
+df['audioSplitFilename']=file
+df.to_csv('E:\Multimodal-emotion-recognition\\dataset_label\P_GData.csv')
+
