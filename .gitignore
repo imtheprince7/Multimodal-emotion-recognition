@@ -1,26 +1,6 @@
-/__pycache__
-/.venv
 /.vscode
-/dlib_venv
-/openface
 
 
-/audio
-/audioAll
-/audioSplit
-/dataset_label
-/emovalue
-/text
-/video
-/videoSplit
-/text2
-/tconvertExcel
-
-/data
-/data.csv
-/audio_features.csv
-/FinalAudioDataset.csv
-/MFCCFeaturess.csv
-/RMSFfeaturePD.csv
-/audio_features.csv
-/text_features.csv
+/dataSet
+/featuresdesc
+/splitData
