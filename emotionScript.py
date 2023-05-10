@@ -1,9 +1,8 @@
-
 import openpyxl
 wb=openpyxl.Workbook()
 sheet=wb.active
 
-fname="Ses01F_script01_1" #Enter File Name
+fname="Ses01F_script01_1" 
 fileName=fname+".txt"
 ExcelFile=fname+".xlsx"
 fileNameEmo="emo_value/"+fileName
@@ -64,4 +63,4 @@ while(True):
     r+=1
    
 wb.save(ExcelFile)
-print("Excel File Generated Lauraa")
+print("Excel File Generated")

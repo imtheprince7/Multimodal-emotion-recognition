@@ -32,7 +32,4 @@ while(i<100):
     r+=1
 
 wb.save(fileName2)
-<<<<<<< HEAD
 print("Excel File Generated ")
-=======
->>>>>>> fa1822ec888780ef2140ea7e16718fd2d9b70d4b

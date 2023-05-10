@@ -1,16 +1,9 @@
-<<<<<<< HEAD
-=======
-
->>>>>>> fa1822ec888780ef2140ea7e16718fd2d9b70d4b
 import openpyxl
 wb=openpyxl.Workbook()
 sheet=wb.active
 
-<<<<<<< HEAD
 fname="Ses03M_impro01.txt"   
-=======
 fname="Ses03M_impro01.txt"     #File Name
->>>>>>> fa1822ec888780ef2140ea7e16718fd2d9b70d4b
 fileName=fname+".txt"
 ExcelFile=fname+".xlsx"
 fileNameEmo="emovalue/"+fileName
@@ -69,8 +62,4 @@ while(True):
     r+=1
    
 wb.save(ExcelFile)
-<<<<<<< HEAD
 print("Excel File Generated ")
-=======
-print("Excel File Generated Lauraa")
->>>>>>> fa1822ec888780ef2140ea7e16718fd2d9b70d4b

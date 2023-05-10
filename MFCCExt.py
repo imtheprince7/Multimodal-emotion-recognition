@@ -1,7 +1,7 @@
 import os
 import pandas as pd
-<<<<<<< HEAD
 import temp
+
 
 df = pd.DataFrame
 sheet=pd.read_csv('dataSet\\dataset_label\\completeData.csv')
@@ -20,8 +20,7 @@ for i in range(8980):
         except:
             pass
 
-           
-=======
+          
 from AudioFeature__ import ExtractFeatures
 
 df = pd.DataFrame
@@ -40,6 +39,3 @@ for i in range(1236):
     data.append(temp)
 data=pd.DataFrame(data)
 data.to_csv('data')
-
-    
->>>>>>> fa1822ec888780ef2140ea7e16718fd2d9b70d4b
