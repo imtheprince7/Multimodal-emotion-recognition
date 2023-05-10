@@ -1,64 +1,54 @@
 import wave
-import pandas as pd
-
 
 def cut_audio(input_file, start_time, end_time, output_file):
-    
+    # Open the input audio file
     with wave.open(input_file, 'rb') as audio_file:
-
-#audio file properties
+        # Get the audio file properties
         sample_width = audio_file.getsampwidth()
         num_channels = audio_file.getnchannels()
         frame_rate = audio_file.getframerate()
         num_frames = audio_file.getnframes()
 
-#frame_rate_calculation      
+        # Calculate the start and end frame indices based on the given start and end times
         start_frame = int(start_time * frame_rate)
         end_frame = int(end_time * frame_rate)
         
-
+        # Make sure the end frame is within the bounds of the audio file
         if end_frame > num_frames:
             end_frame = num_frames
         
-# calculating_no_of_frame_to_read
+        # Calculate the number of frames to read
         num_frames_to_read = end_frame - start_frame
+        
+        # Set the audio file pointer to the start frame
         audio_file.setpos(start_frame)
-
+        
+        # Read the audio data
         audio_data = audio_file.readframes(num_frames_to_read)
         
-# Creating_new_wav_File_with_extracted_audio_segment
+        # Create a new WAV file with the extracted audio segment
         with wave.open(output_file, 'wb') as output_audio_file:
             output_audio_file.setnchannels(num_channels)
             output_audio_file.setsampwidth(sample_width)
             output_audio_file.setframerate(frame_rate)
             output_audio_file.writeframes(audio_data)
- 
-
-
-
-df=pd.read_csv('dataSet/dataset_label/completeData.csv')
-#print(df.head())
-
+import pandas as pd
+df=pd.read_csv('E:\Multimodal-emotion-recognition\\dataset_label\P_GData.csv')
 start=round(df['start_time'])
-print(start.head())
 end=round(df['end_time'])
-print(end.head())
 emotion=df['emotion']
-print(emotion.head())
-filesnames=df['file_name']  
-print(df.head())
-
+filesnames=df['file_name']
+# filesnames=set(filesnames)
 c=0
 file=[]
-
-for name in filesnames:
-    try:
+try:
+    for name in filesnames:
         c=c+1
-        cut_audio('dataSet/audio/'+name+'.wav', start[c], end[c], 'splitData/audioSplit/output'+str(c)+'.wav')
+        cut_audio('audio/'+name+'.wav', start[c], end[c], 'audioSplit/output'+str(c)+'.wav')
         file.append('output'+str(c)+'.wav')
-    except:
-        file.append('')
-
+except:
+    pass
+file.append('')
 df['audioSplitFilename']=file
-df.to_csv('dataSet\dataset_label\completeData.csv')
+df.to_csv('E:\Multimodal-emotion-recognition\\dataset_label\P_GData.csv')
 

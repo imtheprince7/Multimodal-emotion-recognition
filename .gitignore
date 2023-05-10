@@ -1,0 +1,16 @@
+/__pycache__
+/.vscode
+/dataSet
+/featuresdesc
+/featuresdoc
+/logs
+/splitData
+
+
+/data.csv
+/data1.csv
+
+/bilstm_model.h5
+/lstm_model.h5
+/lstm_model.h5
+/rnn_model.h5
