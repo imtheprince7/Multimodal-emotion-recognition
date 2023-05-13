@@ -1,5 +1,4 @@
 import pandas as pd
-<<<<<<< HEAD
 import torch
 from transformers import BertTokenizer, BertForSequenceClassification
 from sklearn.model_selection import train_test_split
@@ -111,4 +110,3 @@ for train, test in kfold.split(X, np.argmax(y, axis=1)):
     print(accuracy)
     scores.append(accuracy) 
 print("Accuracy: {:.2f}% (+/- {:.2f}%)".format(np.mean(scores)*100, np.std(scores)*100))
->>>>>>> fa1822ec888780ef2140ea7e16718fd2d9b70d4b
