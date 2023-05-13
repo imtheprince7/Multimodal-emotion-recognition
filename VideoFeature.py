@@ -1,59 +1,57 @@
-from deepface import DeepFace
 import cv2
+import dlib
 
-# Function to extract facial features from an image
-def extract_features(image):
-    # Detect and extract facial features
-    try:
-        # Using DeepFace to extract facial features
-        features = DeepFace.represent(image, model_name='Facenet')
-        return features
-    except Exception as e:
-        print(f"Error: {str(e)}")
-        return None
+# Step 1: Face Detection
+def detect_faces(frame):
+    detector = dlib.get_frontal_face_detector()
+    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+    faces = detector(gray)
+    return faces
 
-# Open the video file
-video = cv2.VideoCapture('E:\\Multimodal-emotion-recognition\\dataSet\\video\\Ses01F_impro01.avi')
-# Process each frame in the video
+# Step 2: Face Alignment
+def align_face(frame, face):
+    predictor = dlib.shape_predictor("shape_predictor_68_face_landmarks.dat")
+    landmarks = predictor(frame, face)
+    aligned_face = dlib.get_face_chip(frame, landmarks)
+    return aligned_face
+
+# Step 3: Face Recognition
+def extract_features(frame):
+    face_recognizer = dlib.face_recognition_model_v1("dlib_face_recognition_resnet_model_v1.dat")
+    face_descriptor = face_recognizer.compute_face_descriptor(frame)
+    return face_descriptor
+
+# Open video capture
+video = cv2.VideoCapture("dataSet\video\Ses01F_impro01.avi")
+
 while True:
-    # Read a frame from the video
+    # Read the next frame
     ret, frame = video.read()
-    
-    # Check if the frame was read successfully
+
+    # Check if frame was read successfully
     if not ret:
         break
-    
-    # Convert the frame to grayscale for face detection
-    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
-    # Detect faces in the grayscale frame
-    faces = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml').detectMultiScale(gray, scaleFactor=1.1, minNeighbors=5)
+    # Step 1: Face Detection
+    faces = detect_faces(frame)
 
-    # Proceed only if at least one face is detected
-    if len(faces) > 0:
-        # Process each detected face
-        for (x, y, w, h) in faces:
-            # Extract the face region from the frame
-            face = frame[y:y+h, x:x+w]
+    for face in faces:
+        # Step 2: Face Alignment
+        aligned_face = align_face(frame, face)
 
-            # Extract facial features from the face region
-            features = extract_features(face)
-            
-            # Check if facial features were successfully extracted
-            if features is not None:
-                # Print the extracted facial features (you can modify this part to store or process the features)
-                print(features)
-            
-            # Draw a rectangle around the face region (optional)
-            cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2)
-    
-    # Display the frame (optional)
-    cv2.imshow('Video', frame)
-    
-    # Check if the 'q' key was pressed to quit
+        # Step 3: Face Recognition
+        features = extract_features(aligned_face)
+
+        # Do something with the extracted features
+        # e.g., compare features, store in a database, etc.
+
+    # Display the frame with detected faces
+    cv2.imshow("Video", frame)
+
+    # Exit if 'q' is pressed
     if cv2.waitKey(1) == ord('q'):
         break
 
-# Release the video capture and close the windows
+# Release the video capture and close all windows
 video.release()
 cv2.destroyAllWindows()

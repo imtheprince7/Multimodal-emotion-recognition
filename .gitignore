@@ -1,5 +1,6 @@
 /__pycache__
 /.vscode
+/dlib_venv
 /dataSet
 /featuresdesc
 /featuresdoc
