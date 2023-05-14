@@ -1,57 +1,56 @@
-import cv2
-import dlib
+import numpy as np
+import os
+from keras.models import Sequential
+from keras.layers import Conv3D, MaxPooling3D, Flatten, Dense, Dropout
+from keras.utils import to_categorical
+from keras.optimizers import Adam
+from keras.preprocessing.image import ImageDataGenerator
 
-# Step 1: Face Detection
-def detect_faces(frame):
-    detector = dlib.get_frontal_face_detector()
-    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-    faces = detector(gray)
-    return faces
+# Set the path to your video dataset
+data_dir = 'splitData\\videoSplit\\'
 
-# Step 2: Face Alignment
-def align_face(frame, face):
-    predictor = dlib.shape_predictor("shape_predictor_68_face_landmarks.dat")
-    landmarks = predictor(frame, face)
-    aligned_face = dlib.get_face_chip(frame, landmarks)
-    return aligned_face
+# Set the parameters for video frames
+img_width, img_height = 64, 64
+frames_per_clip = 16
 
-# Step 3: Face Recognition
-def extract_features(frame):
-    face_recognizer = dlib.face_recognition_model_v1("dlib_face_recognition_resnet_model_v1.dat")
-    face_descriptor = face_recognizer.compute_face_descriptor(frame)
-    return face_descriptor
+# Set the number of classes
+num_classes = 5
 
-# Open video capture
-video = cv2.VideoCapture("dataSet\video\Ses01F_impro01.avi")
+# Set the batch size and number of epochs
+batch_size = 32
+epochs = 10
 
-while True:
-    # Read the next frame
-    ret, frame = video.read()
+# Create the 3D CNN model
+model = Sequential()
+model.add(Conv3D(32, kernel_size=(3, 3, 3), activation='relu', input_shape=(frames_per_clip, img_width, img_height, 3)))
+model.add(MaxPooling3D(pool_size=(2, 2, 2)))
+model.add(Conv3D(64, kernel_size=(3, 3, 3), activation='relu'))
+model.add(MaxPooling3D(pool_size=(2, 2, 2)))
+model.add(Flatten())
+model.add(Dense(128, activation='relu'))
+model.add(Dropout(0.5))
+model.add(Dense(num_classes, activation='softmax'))
 
-    # Check if frame was read successfully
-    if not ret:
-        break
+# Compile the model
+model.compile(loss='categorical_crossentropy', optimizer=Adam(lr=0.001), metrics=['accuracy'])
 
-    # Step 1: Face Detection
-    faces = detect_faces(frame)
+# Create a data generator for training
+train_datagen = ImageDataGenerator(rescale=1. / 255)
+train_generator = train_datagen.flow_from_directory(data_dir, target_size=(img_width, img_height),
+                                                    batch_size=batch_size, class_mode='categorical',
+                                                    frames_per_clip=frames_per_clip, shuffle=True)
 
-    for face in faces:
-        # Step 2: Face Alignment
-        aligned_face = align_face(frame, face)
+# Get the class labels from the generator
+class_labels = train_generator.class_indices
+class_labels = {v: k for k, v in class_labels.items()}
 
-        # Step 3: Face Recognition
-        features = extract_features(aligned_face)
+# Train the model
+model.fit_generator(train_generator, steps_per_epoch=train_generator.samples // batch_size, epochs=epochs)
 
-        # Do something with the extracted features
-        # e.g., compare features, store in a database, etc.
+# Save the trained model
+model.save('video_classification_model.h5')
 
-    # Display the frame with detected faces
-    cv2.imshow("Video", frame)
-
-    # Exit if 'q' is pressed
-    if cv2.waitKey(1) == ord('q'):
-        break
-
-# Release the video capture and close all windows
-video.release()
-cv2.destroyAllWindows()
+# Save the class labels to a file
+with open('class_labels.txt', 'w') as f:
+    for label in class_labels.values():
+        f.write(label + '\n')
