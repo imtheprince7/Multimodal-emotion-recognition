@@ -38,4 +38,4 @@ for i in range(1236):
     temp.append(labels[i-1])
     data.append(temp)
 data=pd.DataFrame(data)
-data.to_csv('data')
+data.to_csv('data.csv')

@@ -1,24 +1,33 @@
-import librosa
-import cv2
+import pandas as pd
+df=pd.read_csv('AggragatedData.csv')
+import keras
 
-# Load audio signal
-def ExtractFeature(path,filename):
-    print(path)
-    y, sr = librosa.load(path)
+# Create the Conv1D model.
+model = keras.Sequential([
+    keras.layers.Conv1D(filters=128, kernel_size=3, padding='same'),
+    keras.layers.MaxPooling1D(pool_size=2),
+    keras.layers.Flatten(),
+    keras.layers.Dense(128, activation='relu'),
+    keras.layers.Dense(10, activation='softmax')
+])
 
-# Computing_spectrogram
-    spec = librosa.stft(y)
+# Compile the model.
+model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
 
-    # Compute the magnitude spectrogram
-    mag_spec = librosa.magphase(spec)[0]
+# Fit the model to the data.
+model.fit(df['features'], df['labels'], epochs=10)
 
-    # Convert to decibels
-    db_spec = librosa.amplitude_to_db(mag_spec)
+# Create the self-attention model.
+attention_model = keras.Sequential([
+    keras.layers.Attention(attention_mechanism='dot', name='attention'),
+    keras.layers.Dense(10, activation='softmax')
+])
 
-    # Trim the spectrogram to a fixed length
-    fixed_length_spec = librosa.util.fix_length(data=db_spec,size=1025)
+# Compile the attention model.
+attention_model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
 
-    # Reshape the spectrogram to a 2D matrix
-    spec_2d = fixed_length_spec.T
-    spec_2d%=255
-    cv2.imwrite(filename,spec_2d)
+# Fit the attention model to the data.
+attention_model.fit(df['features'], df['labels'], epochs=10)
+
+
+
