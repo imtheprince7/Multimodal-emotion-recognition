@@ -6,6 +6,7 @@ from keras.models import Sequential
 from keras.layers import Dense
 
 
+
 data = pd.read_csv('data.csv')
 
 X = data.iloc[:, :-1]
