@@ -11,6 +11,7 @@ model = keras.Sequential([
     keras.layers.Dense(10, activation='softmax')
 ])
 
+
 # Compile the model.
 model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
 

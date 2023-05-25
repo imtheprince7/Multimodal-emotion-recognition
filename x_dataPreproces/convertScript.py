@@ -1,14 +1,16 @@
 import openpyxl
 wb=openpyxl.Workbook()
 sheet=wb.active
-fileName="E:/Multimodal-emotion-recognition/text/Ses03F_script03_1.txt"
-fileName2="Ses03F_script03_1.xlsx"
+
+fileName="E:\\Multimodal-emotion-recognition\\data\\transcription\\Ses05M_script03_1.txt"
+excelName="E:\\Multimodal-emotion-recognition\\datset_preProces\\Ses05M_script03_1.xlsx"
+
 f = open(fileName, "r")
 fcolumn=('file_name','turn_name','start_time','end_time','text','emotion')
 sheet.append(fcolumn)
 i=1
 r=1
-while(i<100):
+while(i<140):
     asc=65
     data=f.readline()
     cellNo=chr(asc)
@@ -31,5 +33,5 @@ while(i<100):
     i+=1
     r+=1
 
-wb.save(fileName2)
-print("Excel File Generated ")
+wb.save(excelName)
+print("File Generated: "+" "+excelName)

@@ -8,7 +8,7 @@ from sklearn.preprocessing import LabelEncoder
 from keras.utils import to_categorical
 
 # Load the CSV file
-data = pd.read_csv('dataSet\\dataset_label\\completeData.csv')
+data = pd.read_csv('Dataset\\dataset_1000.csv')
 
 # Preprocessing
 X = data['text'].values
@@ -48,7 +48,3 @@ model.fit(X_train, y_train, epochs=10, batch_size=32, validation_data=(X_test, y
 # Save the trained model
 model.save('bilstm_model.h5')
 
-
-
-
-#  video = cv2.VideoCapture('E:\\Multimodal-emotion-recognition\\dataSet\\video\\Ses01F_impro01.avi')

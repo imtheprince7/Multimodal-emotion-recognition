@@ -1,17 +1,16 @@
 import openpyxl
 wb=openpyxl.Workbook()
 sheet=wb.active
-fileName="dataSet\\text\\Ses01F_impro01.txt"
-fileName2="Ses01F_impro01.xlsx"
 
-fileName="E:/Multimodal-emotion-recognition/text/Ses05M_impro01.txt"
-fileName2="Ses05M_impro01.xlsx"
+fileName="E:\\Multimodal-emotion-recognition\\data\\transcription\\Ses05M_impro08.txt"
+fileName2="E:\\Multimodal-emotion-recognition\\datset_preProces\\Ses05M_impro08.xlsx"
+
 f = open(fileName, "r")
 fcolumn=('file_name','turn_name','start_time','end_time','text','emotion')
 sheet.append(fcolumn)
 i=1
 r=1
-while(i<100):
+while(i<140):
     asc=65
     data=f.readline()
     cellNo=chr(asc)

@@ -8,7 +8,7 @@ from sklearn.preprocessing import LabelEncoder
 from keras.utils import to_categorical
 
 # Load the CSV file
-data = pd.read_csv('dataset_label\\completeData.csv')
+data = pd.read_csv('Dataset\\dataset_1000.csv')
 
 # Preprocessing
 X = data['text'].values
@@ -44,7 +44,7 @@ model.add(Dense(units=num_classes, activation='softmax'))
 model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
 
 # Train the model
-model.fit(X_train, y_train, epochs=10, batch_size=32, validation_data=(X_test, y_test))
+model.fit(X_train, y_train, epochs=50, batch_size=32, validation_data=(X_test, y_test))
 
 # Save the trained model
 model.save('rnn_model.h5')

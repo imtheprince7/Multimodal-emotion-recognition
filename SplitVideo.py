@@ -1,5 +1,6 @@
 import cv2
 import pandas as pd
+import numpy as np
 def cut_video(input_path, output_path, start_time, end_time):
     print(input_path)
     video = cv2.VideoCapture(input_path)
@@ -34,15 +35,16 @@ def cut_video(input_path, output_path, start_time, end_time):
 
 
 
-path='dataset_label\\six_emotion_50_data.csv'
+path='Dataset\\dataset_1000.csv'
 df=pd.read_csv(path)
 labels=df['emotion']
 s=df['start_time']
 e=df['end_time']
+
 filename=df['file_name']
 for i in range(len(s)):
     input_path = 'data\\video\\'+filename[i]+'.avi'
-    output_path = 'splitData\\videoSplit\\'+labels[i]+'_'+str(i)+'_.avi'
+    output_path = 'splittedData/splittedVideo/'+labels[i]+'_'+str(i)+'_.avi'
     start_time = round(s[i])
     end_time = round(e[i]) # End time in seconds
 

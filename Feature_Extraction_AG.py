@@ -8,9 +8,9 @@ from keras.layers import Attention, Dropout
 import librosa
 import cv2
 from keras.applications.vgg16 import VGG16
-# Step 1: Load audio and video files from separate folders
-audio_folder = 'splitData/audioSplit/'
-video_folder = 'splitData/videoSplit/'
+
+audio_folder = 'splittedData/splittedAudio/'
+video_folder = 'splittedData/splittedVideo/'
 
 audio_files = os.listdir(audio_folder)
 video_files = os.listdir(video_folder)
@@ -19,18 +19,19 @@ video_files = os.listdir(video_folder)
 def extract_audio_features(audio_file):
     print(audio_file)
     audio, sr = librosa.load(audio_file, sr=None)  # Load audio file
-    mfccs = librosa.feature.mfcc(y=audio, sr=sr, n_mfcc=13)  # Extract MFCC features
+    print("sample rate:", sr)  #16000
+    mfccs = librosa.feature.mfcc(y=audio, sr=sr, n_mfcc=13)  #MFCC features
     feature=[]
     for m in mfccs:
         feature.append(np.mean(m))
     return (feature)
 
-    
 
 audio_features = []
 for audio_file in audio_files:
     features = extract_audio_features(os.path.join(audio_folder, audio_file))
     audio_features.append(features)
+
 
 # Step 3: Extract video features (CNN)
 def extract_video_features(video_file):
@@ -51,6 +52,7 @@ def extract_video_features(video_file):
         img_array = preprocess_input(img_array)
 
         features = model.predict(img_array)
+#        print("features of video:", features.shape)        (1, 7, 7, 512)
         return features.flatten()
     print(success)
     return None

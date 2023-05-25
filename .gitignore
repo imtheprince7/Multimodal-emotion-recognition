@@ -1,10 +1,23 @@
 /.vscode
 /__pycache__
 /data
+/Dataset
 /dataset_label
+/datset_preProces
+
 
 /dlib
 /featuresdesc
 /logs
-/splitData
+/splittedData
 /y_model
+/z_3rd_change
+
+/AG.csv
+/attentionModel.h5
+/BertModel.pt
+
+bilstm_model.h5
+lstm_model.h5
+rnn_model.h5
+

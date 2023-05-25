@@ -2,11 +2,13 @@ import openpyxl
 wb=openpyxl.Workbook()
 sheet=wb.active
 
-fname="Ses01F_script01_1" 
-fileName=fname+".txt"
-ExcelFile=fname+".xlsx"
-fileNameEmo="emo_value/"+fileName
-fileNameTxt="text_File/"+fileName
+fileName = "Ses01M_script01_3.txt"
+excelName = "Ses01M_script01_3"
+
+fileNameEmo="E:/Multimodal-emotion-recognition/data/emotion/"+fileName
+fileNameTxt="E:/Multimodal-emotion-recognition/data/transcription/"+fileName
+
+FileLocation="E:\\Multimodal-emotion-recognition\\datset_preProces\\dataset_Emotion\\"+excelName+".xlsx"
 
 
 fTxt = open(fileNameTxt, "r")
@@ -62,5 +64,6 @@ while(True):
     i+=1
     r+=1
    
-wb.save(ExcelFile)
-print("Excel File Generated")
+wb.save(FileLocation)
+
+print("File Generated: "+" "+excelName)

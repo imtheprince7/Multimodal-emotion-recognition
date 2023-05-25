@@ -34,14 +34,19 @@ def cut_audio(input_file, start_time, end_time, output_file):
             output_audio_file.setframerate(frame_rate)
             output_audio_file.writeframes(audio_data)
     except:
+        print('###############################################')
+        print(output_file)
+        print('###############################################')
         pass
 import pandas as pd
-df=pd.read_csv('dataset_label\\six_emotion_50_data.csv')
+df=pd.read_csv('Dataset\\dataset_1000.csv')
+
+
 start=round(df['start_time'])
 end=round(df['end_time'])
 emotion=df['emotion']
 filesnames=df['file_name']
-print(len(filesnames))
+
 # filesnames=set(filesnames)
 c=0
 file=[]
@@ -49,7 +54,7 @@ try:
     for name in filesnames:
         print(str(c)+' '+name)
         c=c+1
-        cut_audio('data/audio/'+name+'.wav', start[c], end[c], 'splitData/audioSplit/'+emotion[c]+'_'+str(c)+'_.wav')
+        cut_audio('data/audio/'+name+'.wav', start[c], end[c], 'splittedData/splittedAudio/'+emotion[c]+'_'+str(c)+'_.wav')
         file.append('output'+str(c)+'.wav')
 except ValueError as e:
     print(e)
