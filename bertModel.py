@@ -4,7 +4,7 @@ from torch.utils.data import DataLoader, Dataset
 from transformers import BertTokenizer, BertForSequenceClassification
 from sklearn.preprocessing import LabelEncoder
 
-# Defined a custom_dataset_Class to load data from CSV file
+# Defining custom_dataset_Class to load data from CSV file
 class CustomDataset(Dataset):
     def __init__(self, csv_file, tokenizer):
         self.data = pd.read_csv(csv_file)
@@ -15,7 +15,7 @@ class CustomDataset(Dataset):
 
     def __len__(self):
         return len(self.data)
-
+    
     def __getitem__(self, index):
         input_text = self.input_texts[index]
         label = self.labels[index]
@@ -34,12 +34,12 @@ class CustomDataset(Dataset):
 
         return input_ids, attention_mask, label
 
-# Load the pre-trained BERT model and tokenizer
+# Load pre-trained BERT model and tokenizer
 model_name = 'bert-base-uncased'
 tokenizer = BertTokenizer.from_pretrained(model_name)
 model = BertForSequenceClassification.from_pretrained(model_name, num_labels=7)
 
-# Set the device to GPU if available, else use CPU
+# CHEcking GPU & CPU
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 model = model.to(device)
 
@@ -47,18 +47,19 @@ model = model.to(device)
 csv_file = 'dataset_1000.csv'
 model_file = 'BertModel.pt'
 
-# Create an instance of the custom dataset
+# Creating instance of the custom dataset
 dataset = CustomDataset(csv_file, tokenizer)
 
-# Define data loader for batching and shuffling the dataset
+#data loader for batching and shuffling the dataset
 batch_size = 32
 data_loader = DataLoader(dataset, batch_size=batch_size, shuffle=True)
 
-# Define the optimizer and loss function
+
+# Defining optimizer and loss function
 optimizer = torch.optim.AdamW(model.parameters(), lr=1e-5)
 loss_fn = torch.nn.CrossEntropyLoss()
 
-# Train the model
+# Model Training
 num_epochs = 10
 for epoch in range(num_epochs):
     running_loss = 0.0
@@ -80,9 +81,10 @@ for epoch in range(num_epochs):
         optimizer.step()
 
         running_loss += loss.item()
-        print('Program Rrunning.........')
+        print('Program Running.........')
 
     epoch_loss = running_loss / len(data_loader)
+    
 #    print(f'Epoch {epoch+1}/{num_epochs} - Loss: {epoch_loss:.4f}')
 
 # Save trained model

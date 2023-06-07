@@ -1,0 +1,16 @@
+<html>
+    <head>
+        <title>{{title}}</title>
+    </head>
+    <body>
+        <h2>Text Emotion Prediction Page</h2>
+        <form action="/text" enctype="multipart/form-data" method="post">
+            <input type="text" name="text" required>
+            <label>{{res}}</label>
+            <br>
+            <br>
+            <input type="submit" value="Get Emotion">
+        </form>
+        <a href="/audiotemp">Let's move on audio page</a>
+    </body>
+</html>

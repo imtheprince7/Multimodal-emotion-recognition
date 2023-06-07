@@ -2,8 +2,8 @@ import openpyxl
 wb=openpyxl.Workbook()
 sheet=wb.active
 
-fileName = "Ses03M_impro08a.txt"
-excelName = "Ses03M_impro08b"
+fileName = "Ses01F_impro01.txt"
+excelName = "Ses01F_impro01"
 
 fileNameEmo="E:/Multimodal-emotion-recognition/data/emotion/"+fileName
 fileNameTxt="E:/Multimodal-emotion-recognition/data/transcription/"+fileName

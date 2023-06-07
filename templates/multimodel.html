@@ -1,0 +1,52 @@
+<html>
+    <head><title>MultiModel Emotion Prediction</title></head>
+    <body>
+        <form style="margin: 0 auto;width: fit-content;" action="/checkLabel" method="post" enctype="multipart/form-data">
+        <table>
+            <th>MultiModal Emotion Predition</th>
+            <tr> <td> <br></td></tr> 
+    <!---- Attach Audio Portion-->
+                <td>
+                    Attach Audio:
+                </td>
+                <td>
+                    <input type="file" name="audio" accept="" required>
+                </td>
+            </tr>
+    <!---- Attach Video Portion-->
+            <tr>
+                <td>
+                    Attach Video:
+                </td>
+                <td>
+                    <input type="file" name="video" accept="" required>
+                </td>
+            </tr>
+    <!---- Past Text Portion-->
+            <tr>
+                <td>
+                    Enter Text:
+                </td>
+                <td>
+                    <input type="text" name="text"  required>
+                </td>
+            </tr>
+            <tr>
+                <td>                    
+                </td>
+                <td>
+                    <input type="submit" value="Predict Emotion">
+                </td>
+               </tr>
+               <!---- For space Line-->
+               <tr> <td> </td></tr>
+               <tr> <td> </td></tr>
+
+               <tr>
+                <td>Predicted Emotion:</td>
+                    <td><strong>{{res}}</strong></td>
+               </tr>
+        </table>
+        </form>
+    </body>
+</html>
